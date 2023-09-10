@@ -1,0 +1,16 @@
+Previous work history:
+1. system design
+2. Database design
+3. Token based User login
+4. Token based User registration
+5. User registration type driver, reciever
+6. Forget password mail.
+7. Logout from every device
+8. User profile update
+9. Password update
+
+Work history after 6/10/2023:
+7-10-2023 - percel category all data, percel category create - 3 hour
+8-10-2023 - percel category delete, update - 2 hour
+
+
