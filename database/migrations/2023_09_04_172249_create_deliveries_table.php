@@ -15,6 +15,13 @@ class CreateDeliveriesTable extends Migration
     {
         Schema::create('deliveries', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('percel_id');
+            $table->bigInteger('percel_category_id')->nullable();
+            $table->string('percel_status')->nullable();
+            $table->string('percel_payment_status')->nullable();
+            $table->text('delivery_point')->nullable();
+            $table->dateTime('delivery_date')->nullable();
+            $table->string('status')->default(1);
             $table->timestamps();
         });
     }

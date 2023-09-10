@@ -15,6 +15,11 @@ class CreatePercelsTable extends Migration
     {
         Schema::create('percels', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('driver_id');
+            $table->string('type', 10)->default('quick');
+            $table->double('offer_price');
+            $table->bigInteger('category_id')->nullable();
+            $table->tinyInteger('status')->nullable();
             $table->timestamps();
         });
     }

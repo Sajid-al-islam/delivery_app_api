@@ -25,6 +25,7 @@ Route::group(
 
         Route::group(['prefix' => '/user', 'middleware' => ['guest:api']], function () {
             Route::post('/get-token', 'Auth\ApiLoginController@get_token');
+            Route::get('/driver-lists','Auth\UserController@driver_lists');
             Route::post('/api-login', 'Auth\ApiLoginController@login');
             Route::post('/api-register', 'Auth\ApiLoginController@register');
             Route::get('/auth-check', 'Auth\ApiLoginController@auth_check');
@@ -47,7 +48,6 @@ Route::group(
             //authorized user api
             Route::group(['prefix' => 'user'], function () {
                 Route::post('/update-profile', 'Auth\ProfileController@update_profile');
-                // Route::get('/all','Auth\UserController@all');
                 Route::post('/store','Auth\UserController@store');
                 Route::post('/canvas-store','Auth\UserController@canvas_store');
                 Route::post('/update','Auth\UserController@update');
@@ -67,6 +67,17 @@ Route::group(
                 Route::post('/destroy','PercelCategoryController@destroy');
                 Route::post('/restore','PercelCategoryController@restore');
                 Route::get('/{id}','PercelCategoryController@show');
+            });
+
+            Route::group(['prefix' => 'percel'], function () {
+                Route::get('/all','PercelController@all');
+                Route::post('/store','PercelController@store');
+                Route::post('/update', 'PercelController@update');
+                Route::post('/update','PercelController@update');
+                Route::post('/soft-delete','PercelController@soft_delete');
+                Route::post('/destroy','PercelController@destroy');
+                Route::post('/restore','PercelController@restore');
+                Route::get('/{id}','PercelController@show');
             });
 
 

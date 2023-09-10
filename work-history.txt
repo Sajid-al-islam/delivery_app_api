@@ -8,9 +8,14 @@ Previous work history:
 7. Logout from every device
 8. User profile update
 9. Password update
+10. all driver lists
 
-Work history after 6/10/2023:
-7-10-2023 - percel category all data, percel category create - 3 hour
-8-10-2023 - percel category delete, update - 2 hour
+Work history after 3/10/2023:
+4-10-2023 - percel categoey, percel model, migration setup -2 hours
+5-10-2023 - percel info, percel delivery, model migration setup - 3 hours
+6-10-2023 - Shipment, shipment status - model migration setup - 3 hours
+7-10-2023 - percel category all data, percel category create, percel category delete, update - 3 hour
+9-10-2023 - percel create, read, update, delete - 2 hour
+10-10-2023 - percel info create, read, update, delete, takemoney website work, percel create, percel list show - 4 hours
 
 

@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\PercelCategory;
+use App\Models\Percel;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 
-class PercelCategoryController extends Controller
+class PercelController extends Controller
 {
     public function all()
     {
@@ -18,14 +19,16 @@ class PercelCategoryController extends Controller
         }
         // $orderBy = request()->orderBy;
         // $orderByType = request()->orderByType;
-        $query = PercelCategory::where('status', 1);
+        $query = Percel::where('status', 1);
 
         if (request()->has('search_key')) {
             $key = request()->search_key;
             $query->where(function ($q) use ($key) {
                 return $q->where('id', $key)
-                    ->orWhere('name', $key)
-                    ->orWhere('name', 'LIKE', '%' . $key . '%');
+                    ->orWhere('type', $key)
+                    ->orWhere('offer_price', $key)
+                    ->orWhere('offer_price', 'LIKE', '%' . $key . '%')
+                    ->orWhere('type', 'LIKE', '%' . $key . '%');
             });
         }
 
@@ -35,7 +38,7 @@ class PercelCategoryController extends Controller
 
     public function show($id)
     {
-        $data = PercelCategory::where('id',$id)->first();
+        $data = Percel::where('id',$id)->first();
         if(!$data){
             return response()->json([
                 'err_message' => 'not found',
@@ -48,7 +51,12 @@ class PercelCategoryController extends Controller
     public function store()
     {
         $validator = Validator::make(request()->all(), [
-            'name' => ['required'],
+            'driver_id' => ['required'],
+            'type' => ['required'],
+            'offer_price' => ['required'],
+            'percel_status' => ['required'],
+            'percel_payment_status' => ['required'],
+            'delivery_point' => ['required'],
         ]);
 
         if ($validator->fails()) {
@@ -58,20 +66,29 @@ class PercelCategoryController extends Controller
             ], 422);
         }
 
-        $data = new PercelCategory();
-        $data->name = request()->name;
+        $data = new Percel();
+        $data->driver_id = request()->driver_id;
+        $data->type = request()->type;
+        $data->offer_price = request()->offer_price;
+        $data->offer_price = request()->offer_price;
+        $data->category_id = request()->category_id;
+        $data->percel_status = request()->percel_status;
+        $data->percel_payment_status = request()->percel_payment_status;
+        $data->delivery_point = request()->delivery_point;
+        $data->delivery_date = Carbon::parse(request()->delivery_point)->toDateTimeString();
         $data->status = 1;
-        $data->created_by = auth()->user()->id;
         $data->save();
 
-        return response()->json($data, 200);
+        return response()->json([
+            "message" => "percel created successfully!"
+        ], 200);
     }
 
     
 
     public function update()
     {
-        $data = PercelCategory::find(request()->id);
+        $data = Percel::find(request()->id);
         if(!$data){
             return response()->json([
                 'err_message' => 'validation error',
@@ -111,7 +128,7 @@ class PercelCategoryController extends Controller
             ], 422);
         }
 
-        $data = PercelCategory::find(request()->id);
+        $data = Percel::find(request()->id);
         $data->status = 0;
         $data->save();
 
@@ -133,7 +150,7 @@ class PercelCategoryController extends Controller
             ], 422);
         }
 
-        $data = PercelCategory::where(request()->id)->delete();
+        $data = Percel::where(request()->id)->delete();
 
         return response()->json([
             'result' => 'deleted',
@@ -153,7 +170,7 @@ class PercelCategoryController extends Controller
             ], 422);
         }
 
-        $data = PercelCategory::find(request()->id);
+        $data = Percel::find(request()->id);
         $data->status = 1;
         $data->save();
 

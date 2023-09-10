@@ -15,6 +15,12 @@ class CreatePercelInfosTable extends Migration
     {
         Schema::create('percel_infos', function (Blueprint $table) {
             $table->id();
+            $table->bigInteger('percel_id');
+            $table->bigInteger('percel_category_id')->nullable();
+            $table->double('weight')->nullable();
+            $table->double('length')->nullable();
+            $table->double('width')->nullable();
+            $table->double('height')->nullable();
             $table->timestamps();
         });
     }
